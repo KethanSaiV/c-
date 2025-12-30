@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+struct Vital {
+    int id;
+    float heart_rate;
+    float spo2;
+};
+
+int main() {
+    struct Vital v;
+    FILE *fp = fopen("vitals.dat", "ab");
+
+    printf("Enter ID HR SpO2:\n");
+    scanf("%d %f %f", &v.id, &v.heart_rate, &v.spo2);
+
+    fwrite(&v, sizeof(v), 1, fp);
+    fclose(fp);
+
+    fp = fopen("vitals.dat", "rb");
+    printf("\nStored Records:\n");
+
+    while (fread(&v, sizeof(v), 1, fp)) {
+        printf("ID:%d HR:%.1f SpO2:%.1f", v.id, v.heart_rate, v.spo2);
+
+        if (v.heart_rate < 60 || v.heart_rate > 100 || v.spo2 < 95)
+            printf("  [ALERT]\n");
+        else
+            printf("  [NORMAL]\n");
+    }
+
+    fclose(fp);
+    return 0;
+}
