@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main() {
+    float raw, slope, offset;
+
+    printf("Enter raw sensor value:\n");
+    scanf("%f", &raw);
+
+    printf("Enter calibration slope and offset:\n");
+    scanf("%f %f", &slope, &offset);
+
+    float calibrated = slope * raw + offset;
+    printf("Calibrated Output: %.3f\n", calibrated);
+
+    return 0;
+}
