@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 1000
+#define FS 250   // sampling frequency (Hz)
+
+int main() {
+    int ecg[MAX], n;
+    int peaks = 0;
+
+    printf("Enter number of ECG samples:\n");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++)
+        scanf("%d", &ecg[i]);
+
+    // Simple R-peak detection
+    for (int i = 1; i < n - 1; i++) {
+        if (ecg[i] > ecg[i - 1] && ecg[i] > ecg[i + 1] && ecg[i] > 600)
+            peaks++;
+    }
+
+    float duration = (float)n / FS;
+    float heart_rate = (peaks / duration) * 60.0;
+
+    printf("Detected R-peaks: %d\n", peaks);
+    printf("Estimated Heart Rate: %.2f bpm\n", heart_rate);
+
+    if (heart_rate < 60 || heart_rate > 100)
+        printf("Warning: Possible arrhythmia\n");
+
+    return 0;
+}
