@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+#define N 256
+
+int main() {
+    int gt[N][N], pred[N][N];
+    int intersection = 0, sum = 0;
+
+    printf("Enter Ground Truth Mask:\n");
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+            scanf("%d", &gt[i][j]);
+
+    printf("Enter Predicted Mask:\n");
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++) {
+            scanf("%d", &pred[i][j]);
+            if (gt[i][j] == 1 && pred[i][j] == 1)
+                intersection++;
+            if (gt[i][j] == 1 || pred[i][j] == 1)
+                sum++;
+        }
+
+    float dice = (2.0 * intersection) / sum;
+    printf("Dice Coefficient: %.4f\n", dice);
+
+    return 0;
+}
