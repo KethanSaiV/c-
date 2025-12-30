@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+#define H 256
+#define W 256
+
+int main() {
+    int mask[H][W];
+    int count = 0;
+    float pixel_area_mm2 = 0.5 * 0.5;  // example spacing
+
+    printf("Enter binary tumor mask (0/1):\n");
+
+    for (int i = 0; i < H; i++)
+        for (int j = 0; j < W; j++) {
+            scanf("%d", &mask[i][j]);
+            if (mask[i][j] == 1)
+                count++;
+        }
+
+    float tumor_area = count * pixel_area_mm2;
+
+    printf("Tumor pixels: %d\n", count);
+    printf("Estimated Tumor Area: %.2f mm^2\n", tumor_area);
+
+    return 0;
+}
